@@ -22,7 +22,7 @@ Our approach to defining watershed boundaries relied on two key strategies: (1) 
 ## Citation:
 If you find the scripts, data, or paper useful, please cite: [DOI forthcoming upon publication]
 ## Contact 
-For questions, feedback, or to report issues with the scripts, please reach out to:
+For questions, feedback, or to report issues with the scripts and data, please reach out to:
 
 Shuyu Chang – shuyu.chang.hydro@gmail.com
 
