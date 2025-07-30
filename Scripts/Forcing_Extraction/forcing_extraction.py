@@ -10,34 +10,31 @@ import geopandas as gpd
 from rasterstats import zonal_stats
 
 def extract_watershed_stats(watershed_path, raster_path, var_name, save_path=None):
-
     # Load watershed boundaries
     wshd = gpd.read_file(watershed_path)
 
-    # Get raster CRS
+    # Get raster CRS (may be None)
     with rasterio.open(raster_path) as src:
         raster_crs = src.crs
 
-    if wshd.crs is None:
+    # Handle CRS logic
+    if wshd.crs is None and raster_crs is None:
+        raise ValueError("Neither watershed nor raster has a CRS defined. Please assign a CRS before running.")
+    elif raster_crs is None:
+        warnings.warn("Raster has no CRS. Assuming it matches watershed CRS.", UserWarning)
+    elif wshd.crs is None:
         raise ValueError("Watershed file has no CRS defined. Please define a CRS before running.")
-    
-    # Reproject watershed to raster CRS if needed
-    if wshd.crs != raster_crs:
+    elif wshd.crs != raster_crs:
         wshd = wshd.to_crs(raster_crs)
 
     # Prepare base dataframe without geometry
     df_wshd = wshd.drop(columns=["geometry"])
     
-    # Compute zonal statistics (mean values for each watershed polygon)
+    # Compute zonal statistics
     stats = zonal_stats(wshd, raster_path, stats="mean")
     stats_df = pd.DataFrame(stats)
-    
-    # Add forcing variable to dataframe
     df_wshd[var_name] = stats_df["mean"].values
     
-    # Optionally save results
     if save_path:
         df_wshd.to_csv(save_path, index=False)
-    
-    return df_wshd
 
