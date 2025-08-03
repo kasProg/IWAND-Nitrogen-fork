@@ -2,10 +2,10 @@ library(nhdplusTools)
 library(tidyr)
 library(dplyr)
 
-# NHDPLUS flow line attributesfor HUC no. {}. Data can be found at .....
+# Read NHDPLUS flowline attributesfor HUC no.{}. Data can be found at https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data#Download
 network  = read.csv("path to NHDPlus flowline attributes for HUC{}")
 
-# Read gauges in Group V for HUC no.{}. An example dataset is located in the project folder data/HUC02/csv
+# Read gauges in Group V for HUC no.{}. An example dataset is located in the project folder /data/HUC02/csv
 df_sites =read.csv("/data/HUC{}/csv/gauges_autodel_{}.csv")
 
 # Extract COMIDs for all gauges
@@ -21,7 +21,7 @@ for (i in 1:nrow(df_sites)){
   gauge_id <- df_sites$Monitoring[i]
   df_gauge = data.frame(get_UT(network, comid))
   colnames(df_gauge) = 'COMID'
-  write.csv(df_gauge, paste("./data/HUC{}/gauges_UScomids/", gauge_id, "_UTcomids.csv", sep = ""))
+  write.csv(df_gauge, paste("/data/HUC{}/gauges_UScomids/", gauge_id, "_UTcomids.csv", sep = ""))
 
 }
 
