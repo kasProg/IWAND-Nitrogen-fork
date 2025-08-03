@@ -29,11 +29,12 @@ output_path         = r"/data/HUC{}/output_shapefiles"
 # Path to csv files produced from running the Rcode "get_UTcomids.R" located in the project folder /Scripts/Watershed_Boundary_Extraction/Rcodes/ to get the upstream COMIDs for each gauge 
 UScomids_path       = r"/data/HUC{}/gauges_UScomids"
 
-# Path to the catchment shapefiles for all HUCs provided by NHDPlus at https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data#Download 
+# Path to the catchment shapefiles for all HUCs provided by NHDPlus at https://nhdplus.com/NHDPlus/V2GlobalData.php 
 catchment_path      = r"path to NHDPlusCatchment shapefiles for all HUCs from NHDPlus"
 
 # Path to the watershed boundaries shapefiles for all gauges in GAGES-II  dataset provided at https://data.usgs.gov/datacatalog/data/USGS:1d623649-ccb9-4238-8add-3174bc322fdf
 input_gaugesII_path = r"path to shape files from GAGES-II: Geospatial Attributes of Gages for Evaluating Streamflow by USGS" 
+
 
 
 
