@@ -7,7 +7,7 @@ import shutil
 
 class extract_watershedboundary():
     def __init__(self, SWTrends_path, input_gagesII_path, catchment_path, Huc_csv_path, UScomids_path, output_path):
-        # initialize all the required paths (see definitions in the project folder Scripts/Watershed_Boundary_Extraction/configs/config.py)
+        # initialize all the required paths (see definitions in the project folder /Scripts/Watershed_Boundary_Extraction/configs/config.py)
         self.Huc_csv_path   = Huc_csv_path
         self.UScomids_path  = UScomids_path
         self.output_path    = output_path
@@ -224,5 +224,6 @@ def empty_directory(directory):
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+
 
 
