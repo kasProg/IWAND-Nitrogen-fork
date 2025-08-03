@@ -2,19 +2,19 @@ library(nhdplusTools)
 library(tidyr)
 library(dplyr)
 
-# NHDPLUS flow line attributes
-network  = read.csv("path to NHDPlus flowline attributes for HUC{no.}")
+# NHDPLUS flow line attributesfor HUC no. {}. Data can be found at .....
+network  = read.csv("path to NHDPlus flowline attributes for HUC{}")
 
-# gauges in Group V for HUC no.{}
+# Read gauges in Group V for HUC no.{}
 df_sites =read.csv("/data/HUC{}/csv/gauges_autodel_{}.csv")
 
-# extract COMIDs for all gauges
+# Extract COMIDs for all gauges
 network$COMID = as.integer(network$COMID)
 
 network = select(network, c('COMID', 'Pathlength','LENGTHKM', 'Hydroseq', 'LevelPathI', 'DnHydroseq'))
 network = network %>% drop_na()
 
-# loop through all gauges: 1) get gauge COMID, 2) get gauge_id (name), 3) get upstream COMIDs for this gauge, 4) save them to one dataframe
+# Loop through all gauges: 1) get gauge COMID, 2) get gauge_id (name), 3) get upstream COMIDs for this gauge, 4) save them to one csv file
 for (i in 1:nrow(df_sites)){
   print(i)
   comid    <- df_sites$COMID[i]
