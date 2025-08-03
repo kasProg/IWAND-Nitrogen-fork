@@ -2,7 +2,7 @@ library(nhdplusTools)
 library(tidyr)
 library(dplyr)
 
-# Read NHDPLUS flowline attributesfor HUC no.{}. Data can be found at https://www.epa.gov/waterdata/get-nhdplus-national-hydrography-dataset-plus-data#Download
+# Read NHDPLUS flowline attributesfor HUC no.{}. Data can be found at https://nhdplus.com/NHDPlus/V2GlobalData.php
 network  = read.csv("path to NHDPlus flowline attributes for HUC{}")
 
 # Read gauges in Group V for HUC no.{}. An example dataset is located in the project folder /data/HUC02/csv
