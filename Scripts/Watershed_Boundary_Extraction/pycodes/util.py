@@ -7,7 +7,7 @@ import shutil
 
 class extract_watershedboundary():
     def __init__(self, SWTrends_path, input_gagesII_path, catchment_path, Huc_csv_path, UScomids_path, output_path):
-        # initialize all the required paths
+        # initialize all the required paths (see definitions in the project folder Scripts/Watershed_Boundary_Extraction/configs/config.py)
         self.Huc_csv_path   = Huc_csv_path
         self.UScomids_path  = UScomids_path
         self.output_path    = output_path
@@ -15,11 +15,11 @@ class extract_watershedboundary():
         self.SWTrends_path  = SWTrends_path
         self.input_gagesII_path = input_gagesII_path
 
-        # read the shape files from Watershed boundaries for study sites of the U.S. Geological Survey Surface Water Trends project
-        self.SWTrends_shp  = gpd.read_file(os.path.join(self.SWTrends_path, "SW-Trends-watershed-bounds-shapefile\SWTrends_watershed_boundaries.shp"))
-        self.df_SWTrends   =  pd.read_csv(os.path.join(self.SWTrends_path, "SWTrends_watershed_boundaries.txt"))
+        # read the shapefiles from Watershed boundaries for study sites of the U.S. Geological Survey Surface Water Trends project
+        self.SWTrends_shp  = gpd.read_file(os.path.join(self.SWTrends_path, "SW-Trends-watershed-bounds-shapefile/SWTrends_watershed_boundaries.shp"))
+        self.df_SWTrends   = pd.read_csv(os.path.join(self.SWTrends_path, "SWTrends_watershed_boundaries.txt"))
 
-        # read the paths to shape files from GAGES-II: Geospatial Attributes of Gages for Evaluating Streamflow by USGS
+        # read the paths to shapefiles from GAGES-II: Geospatial Attributes of Gages for Evaluating Streamflow by USGS
         self.files_gageII       = os.listdir(self.input_gagesII_path)
 
     def extract_gII_gauges(self, file_in, file_out, Huc_no, name= True):
@@ -27,9 +27,9 @@ class extract_watershedboundary():
         
         # Input:
         # - file_in : input csv file (ex: "/data/HUC{Huc_no}/csv/gauges_gII_name_{Huc_no}.csv" or "/data/HUC{Huc_no}/csv/gauges_gII_snap_{Huc_no}.csv")
-        # - file_out: output csv file (same as input file with area_src column added, area_src is the area of the gauge watershed boundary shapefile)
-        # - Huc_no  : is the number of current HUC working on from HUC_list
-        # - name    : a boolean flag if true > working on gauges found by name query, else > working on gauges found by COMID query
+        # - file_out: output csv file (same as input file with area_src column added, area_src is the area of the extracted watershed boundary shapefile for each gauge)
+        # - Huc_no  : is the number of current HUC (working on) from HUC_list
+        # - name    : a boolean flag if true: working on gauges found by name query, else: working on gauges found by COMID query
 
         df_common_gages = pd.read_csv(os.path.join(self.Huc_csv_path.format(Huc_no), file_in), dtype={'GII': str, 'WT': str})
         monitoring_lst  = df_common_gages['Monitoring'].values.tolist()
@@ -74,8 +74,8 @@ class extract_watershedboundary():
         # Input:
         # - file_in : input csv file (ex: "/data/HUC{Huc_no}/csv/gauges_SWT_name_{Huc_no}.csv" or "/data/HUC{Huc_no}/csv/gauges_SWT_snap_{Huc_no}.csv")
         # - file_out: output csv file (same as input file with area_src column added, area_src is the area of the gauge watershed boundary shapefile)
-        # - Huc_no  : is the number of current HUC working on from HUC_list
-        # - name    : a boolean flag if true > working on gauges found by name query, else > working on gauges found by COMID query
+        # - Huc_no  : is the number of current HUC (working on) from HUC_list
+        # - name    : a boolean flag if true: working on gauges found by name query, else: working on gauges found by COMID query
         df_common_gages = pd.read_csv(os.path.join(self.Huc_csv_path.format(Huc_no), file_in), dtype={'GII': str, 'WT': str})
 
         # Add other fields required for the validation of the extracted watershed boundary files
@@ -182,12 +182,12 @@ class extract_watershedboundary():
 
 def run_qaqc(wshd_area, TotDAsqKm, Area_agg):
     # Description: A validation function to check the accuracy of:
-    # 1) COMID assignment ,and 2) the extraction of watershed boundary shapefiles for gauges in Group V 
+    # 1) COMID assignment, and 2) the extraction of watershed boundary shapefiles for gauges in Group V 
     
     # Inputs:
     # - wshd_area: ground truth value for the watershed area corresponding to specific gauge in square kilometers
     # - TotDAsqKm: the total drainage area corresponding to a specific COMID according to NHDPlus dataset in square kilometers
-    # - Area_agg : the area of the extracted watershed boundary shape file in square kilometers
+    # - Area_agg : the area of the extracted watershed boundary shapefile in square kilometers
     
     # Check one: compare wshd_area (if available) to  TotDAsqKm
     if wshd_area != 0.0:
@@ -224,4 +224,5 @@ def empty_directory(directory):
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+
 
