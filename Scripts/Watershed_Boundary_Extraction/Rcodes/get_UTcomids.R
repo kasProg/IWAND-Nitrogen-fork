@@ -5,7 +5,7 @@ library(dplyr)
 # NHDPLUS flow line attributesfor HUC no. {}. Data can be found at .....
 network  = read.csv("path to NHDPlus flowline attributes for HUC{}")
 
-# Read gauges in Group V for HUC no.{}
+# Read gauges in Group V for HUC no.{}. An example dataset is located in the project folder data/HUC02/csv
 df_sites =read.csv("/data/HUC{}/csv/gauges_autodel_{}.csv")
 
 # Extract COMIDs for all gauges
