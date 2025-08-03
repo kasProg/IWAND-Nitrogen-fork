@@ -17,7 +17,7 @@ Our approach to defining watershed boundaries relied on two key strategies: (1) 
 
   An example dataset is located in /data/HUC01/csv/
 - b) For Group V gauges, run get_UTCOMIDs.R located in /Scripts/Watershed_Boundary_Extraction/Rcodes to get the upstream COMIDs for each gauge in Group V in all HUCs
-- c) run main.py in located in /Scripts/Watershed_Boundary_Extraction/pycodes to get the shapefiles for each all gauges in each group
+- c) run main.py in located in /Scripts/Watershed_Boundary_Extraction/pycodes to get the shapefiles for all gauges in each group
 
 ## Citation:
 If you find the scripts, data, or paper useful, please cite: [DOI forthcoming upon publication]
