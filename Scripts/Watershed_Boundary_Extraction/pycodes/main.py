@@ -1,10 +1,12 @@
 from util import *
 from configs.config import *
+# Before running this code please check the config.py file located in the project folder /Scripts/Watershed_Boundary_Extraction/configs/)
+# to download all the required data
 
 # Initialize the class for extracting watershed boundaries of all gauges in all HUCs
 extract_WBD = extract_watershedboundary(SWTrends_path, input_gaugesII_path, catchment_path, Huc_csv_path, UScomids_path,output_path)
 
-# Loop through all the 18 HUCs (An example data for HUC02 is given in the project folder Scripts/Watershed_Boundary_Extraction/data/HUC02)
+# Loop through all the 18 HUCs (An example data for HUC02 is given in the project folder /data/HUC02)
 for Huc_no in HUC_no_lst:
     print(Huc_no)
     ###################################################################################################
@@ -40,6 +42,7 @@ for Huc_no in HUC_no_lst:
             extract_WBD.auto_delineate_gauges(filename_cat,
                                               filename_cat_out,
                                               Huc_no)
+
 
 
 
