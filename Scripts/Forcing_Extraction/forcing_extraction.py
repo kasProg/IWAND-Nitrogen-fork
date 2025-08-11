@@ -7,8 +7,11 @@ Users can expand IWAND-Nitrogen by extracting additional forcings or applying th
 '''
 import pandas as pd
 import geopandas as gpd
+import rasterio
 from rasterstats import zonal_stats
+import os 
 
+os.chdir("./data")
 def extract_watershed_stats(watershed_path, raster_path, var_name, save_path=None):
     # Load watershed boundaries
     wshd = gpd.read_file(watershed_path)
@@ -37,4 +40,9 @@ def extract_watershed_stats(watershed_path, raster_path, var_name, save_path=Non
     
     if save_path:
         df_wshd.to_csv(save_path, index=False)
-
+    return(df_wshd)
+        
+    
+watershed_path="./IWAND-Nitrogen/Watershed_Boundary_Simplified.gpkg"
+raster_path="./Forcing/Human_2017.tif"
+df_wshd=extract_watershed_stats(watershed_path, raster_path, "Human_2017", save_path=None)
