@@ -18,7 +18,7 @@ Our approach to defining watershed boundaries relied on two key strategies: (1) 
 Time-series N input forings from gTREND-Nitrogen and climate forcings from NLDAS2 were extracted based on watershed boundary. 
 
 The climate forcing extraction was done using two ways: 
-**Scrips/Forcing_Extraction/nldas_point_extraction.py**: For watersheds smaller than NLDAS2 grid (~0.125 degree), the forcings were extracted from coordinates of the centroid of watersheds and 
+**Scrips/Forcing_Extraction/nldas_point_extraction.py**: For watersheds smaller than NLDAS2 grid (~0.125 degree), the forcings were extracted from coordinates of the centroid of watersheds.
 **hydroData** (https://github.com/mhpi/hydroData): Used for the larger watersheds  
 
 ## Citation:
